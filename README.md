@@ -9,6 +9,18 @@ The Python backend is responsible for processing the user input, running the dec
 * [Presentation ](https://www.canva.com/design/DAFdktmiEKU/8EIVJAiIAeuemGgWoWZFkg/edit?utm_content=DAFdktmiEKU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 * [Demo Vedio](https://drive.google.com/file/d/1jbHC00ibsEOs0XNXANm4zM7d0XBtqDpv/view?usp=share_link)
 
+## Running the web-application locally
+```
+git clone https://github.com/aryanraj2713/Phish-Guardian.git
+cd Phish-Guardian
+```
+* Make sure Chrome Browser or web-driver version 89.0.4356.6 ,or later version is available.
+```
+pip install -r requirements.txt
+python3 main.py 
+```
+
+
 ## Screenshot 
 ### Landing Page 
 ![Landing Page](https://user-images.githubusercontent.com/75358720/226133661-ee11bb1d-2c8e-4891-902b-5cebbd40e1f8.png)
