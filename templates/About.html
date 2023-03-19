@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% block title %}PhishGuardian{% endblock %}
+
+{% block content %}
+<!-- Puranjay was here -->
+<head>
+    <!-- <link rel="stylesheet" href="C:\Users\Aryan Raj\Desktop\Destop iles\react\PhishGuardian\static\css\style.css">
+    <link rel="stylesheet" href="C:\Users\Aryan Raj\Desktop\Destop iles\react\PhishGuardian\static\css\bootstrap.min.css"> -->
+    <!-- <link rel="stylesheet" href="static\css\bootstrap.min.css.map"> -->
+    <link rel="stylesheet" href="static\css\style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<main>
+  <nav>
+    <div class="logo">
+      <h2 class="headng">PhishGuardian</h2>
+    </div>
+    <ul>
+      <li><a href="{{ url_for('home') }} "><img class = 'chut' src="{{ url_for('imghome')}}" alt="Home"></a></li>
+      <li><a href=" {{ url_for('about') }} ">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="about-body">
+    <h1 class="home-text">About Project</h1>
+    <h2>PhishGuardian</h2>
+    <p>
+      PhishGuardian aims to detect whether a URL is safe or not using a decision tree algorithm. The project uses a web app to interact with users, and a Python backend to process the user input and make predictions about the safety of a given URL. The decision tree algorithm is a machine learning technique that uses a series of binary decisions to classify input data into categories. In the case of PhishGuardian, the algorithm analyzes the characteristics of a URL and decides whether it is safe or not based on a set of pre-defined rules. The algorithm is trained on a dataset of known safe and phishing URLs, so it can accurately classify new URLs that it hasn't seen before. <br><br>
+      The web app allows users to input a URL and receive a prediction about its safety. The user interface is designed to be user-friendly and intuitive, with clear instructions on how to use the app. Once the user inputs a URL, the app sends the URL to the Python backend, which runs the decision tree algorithm and returns a prediction about the safety of the URL. The prediction is then displayed to the user in the web app. The Python backend is responsible for processing the user input, running the decision tree algorithm, and returning the prediction to the web app. The backend is written in Python, which is a popular language for machine learning and data analysis. The backend is also responsible for training the decision tree algorithm on a dataset of known safe and phishing URLs, so it can make accurate predictions.
+    </p>
+
+    <!-- <br>
+    <h2>Files for reference:</h2>
+    <ul>
+      <li><a href="{{ url_for('ppt') }}" target="_blank">PPT</a></li>
+      <li><a href="{{ url_for('video') }}" target="_blank">Demo Video</a></li>
+    </ul>
+    <br> -->
+
+    <h2>Screenshots:</h2>
+    <ul>
+      <table class="ss_align", width="100%">
+        <tr>
+          <th>Landing Page</th>
+          <th>Result Page</th>
+        </tr>
+        <tr>
+        <td><img src="{{url_for('imgland') }}" width="640" height="360" alt="Insert Landing Image Here"></td>
+        <td><img src="{{url_for('imgres') }}" width="640" height="360" alt="Insert Result Image Here"></td>
+        </tr>
+      </table>
+        <!-- <li>Landing Page</li><br>
+        <img src="{{url_for('imgland') }}" width="640" height="360" alt="Insert Landing Image Here">
+        <li> Results Page</li><br>
+        <img src="{{url_for('imgres') }}" width="640" height="360" alt="Insert Result Image Here"> -->
+    </ul>
+
+    <h2>Technologies Used:</h2>
+    <ul>
+      <li>Flask</li>
+      <li>Sk-Learn</li> 
+      <li>HTML, CSS, JS</li> 
+      <li>Selenium</li>  
+      <li>Git</li>
+    </ul>
+
+    <!-- <h2>Dataset Credits:</h2>
+    <p>
+      &emsp;Author = "Dua, Dheeru and Graff, Casey",<br>
+      &emsp;Year = "2017",<br>
+      &emsp;Title = "UCI Machine Learning Repository",<br>
+      &emsp;Url = <a href="http://archive.ics.uci.edu/ml", target="_blank"> [Dataset]</a>,<br>
+      &emsp;Institution = "University of California, Irvine, School of Information and Computer Sciences"<br>
+      &emsp;Dua, D. and Graff, C. (2019). UCI Machine Learning Repository <a href="http://archive.ics.uci.edu/ml", target="_blank">[click]</a>.<br>
+      &emsp;Irvine, CA: University of California, School of Information and Computer Science.<br>  
+    </p> -->
+
+    <h2>Reference Research Papers:</h2>
+    <ul>
+      <li>Mohammad, Rami, McCluskey, T.L. and Thabtah, Fadi (2012) An Assessment of Features Related to Phishing Websites using an Automated Technique. In: International Conferece For Internet Technology And Secured Transactions. ICITST 2012 . IEEE, London, UK, pp. 492-497. ISBN 978-1-4673-5325-0</li>
+      <li>Mohammad, Rami, Thabtah, Fadi Abdeljaber and McCluskey, T.L. (2014) Predicting phishing websites based on self-structuring neural network. Neural Computing and Applications, 25 (2). pp. 443-458. ISSN 0941-0643</li>
+      <li>Mohammad, Rami, McCluskey, T.L. and Thabtah, Fadi Abdeljaber (2014) Intelligent Rule based Phishing Websites Classification. IET Information Security, 8 (3). pp. 153-160. ISSN 1751-8709</li>
+    </ul>
+
+  </div>
+  
+  <!-- <section class=' container flex section about-section'>
+    <h1 class="home-text", class='section-title flex'>About Us</h1>
+      <p1>
+        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
+      </p1>
+  </section> -->
+          <!-- <svg class="gif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,160L84.7,64L169.4,96L254.1,256L338.8,320L423.5,96L508.2,288L592.9,128L677.6,256L762.4,256L847.1,192L931.8,192L1016.5,192L1101.2,32L1185.9,192L1270.6,32L1355.3,160L1440,192L1440,320L1355.3,320L1270.6,320L1185.9,320L1101.2,320L1016.5,320L931.8,320L847.1,320L762.4,320L677.6,320L592.9,320L508.2,320L423.5,320L338.8,320L254.1,320L169.4,320L84.7,320L0,320Z"></path></svg> -->
+</main>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+
+{% endblock %}

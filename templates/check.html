@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% block title %}Processing | Phishing Website Detector{% endblock %}
+
+{% set theme = 'dark' -%}
+
+{% block content %}
+<div class="card card--result color-bg-dark">
+  <img class="screenshot--target card-img rounded-0" alt="{{target}}" style="display: none;">
+  <div class="screenshot--skeleton placeholder-glow">
+    <span class="placeholder"></span>
+  </div>
+
+  <div class="card-img-overlay content--wrapper">
+    <div class="content--area placeholder-glow">
+      <div class="liquid-ball placeholder">
+        <div class="ball-inner">
+          <div class="ball-percent"></div>
+          <div class="ball-water"></div>
+          <div class="ball-glare"></div>
+        </div>
+      </div>
+      <button id="web-button" class="btn btn-lg btn-redirect placeholder px-lg-5">Continue to
+        website</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+  function setTargetScreenshot() {
+    var targetScreenshot = $(".screenshot--target");
+    var skeletonScreenshot = $(".screenshot--skeleton");
+
+    targetScreenshot.hide();
+    skeletonScreenshot.show();
+
+    var height = $(window).height();
+    var width = $(window).width();
+
+    targetScreenshot.attr("src", `{{ url_for('screenshot', target=target) }}&width=${width}&height=${height}`);
+    targetScreenshot.on('load', function () {
+      skeletonScreenshot.hide();
+      $(this).show();
+    });
+  }
+
+  function showResult(data) {
+    var variantInc = 100 / 3;
+    var safe_percentage = data.safe_percentage;
+    var percentage = Math.max(data.safe_percentage, data.unsafe_percentage);
+
+    if (percentage !== "" &&
+      !isNaN(percentage) &&
+      percentage <= 100 &&
+      percentage >= 0) {
+
+      var waterLevel = 100 - percentage;
+
+      $(".ball-percent").append($("<span>").text(percentage.toLocaleString('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 1,
+      }) + "%"));
+      $(".ball-water").css("top", waterLevel + "%");
+
+      if (safe_percentage < variantInc * 1) {
+        $(".content--area").addClass("content--unsafe");
+        $(".ball-percent").append($("<span>").text("unsafe"));
+        $(".btn-redirect").attr("onClick", "phishedAlert()");
+      } else if (safe_percentage < variantInc * 2) {
+        $(".content--area").addClass("content--doubt");
+        $(".ball-percent").append($("<span>").text("doubt"));
+        $(".btn-redirect").attr("onClick", `warningAlert('${data.target}')`);
+      } else {
+        $(".content--area").addClass("content--safe");
+        $(".ball-percent").append($("<span>").text("safe"));
+        $(".btn-redirect").attr("onClick", `safeAlert('${data.target}')`);
+      }
+    } else {
+      $(".ball-water").css("top", "100%");
+      $(".ball-percent").text("NaN").css("font-size", "92px");
+      $(".content--area").addClass("content--doubt");
+    }
+
+    $(".content--area").find(".placeholder").removeClass("placeholder");
+    $(".content--area").removeClass("placeholder-glow");
+  }
+
+  function phishedAlert() {
+    Swal.fire({
+      title: "Phished Website!!",
+      text: "It's too dangerous to continue, hence we can't allow this action.",
+      showCancelButton: true,
+      showConfirmButton: false,
+      showDenyButton: true,
+      denyButtonText: 'Back to home'
+    }).then((result) => {
+      if (result.isDenied) {
+        window.location = "{{ url_for('home') }}";
+      }
+    });
+  }
+
+  function warningAlert(target) {
+    Swal.fire({
+      title: "Seems unsafe to me!!",
+      text: "It's too dangerous to continue, hence we can't allow this action.",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: 'Continue anyways'
+    }).then((result) => {
+      window.open(target, "_blank");
+    });
+  }
+
+  function safeAlert(target) {
+    Swal.fire({
+      title: "Hurray! You're safe",
+      html: "You'll be redirected to the website...",
+      timer: 3000,
+      timerProgressBar: true
+    }).then((result) => {
+      if (result.dismiss === Swal.DismissReason.timer) {
+        window.open(target, "_blank");
+      }
+    });
+  }
+
+  function invalidAlert(error) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops! Something went wrong!',
+      text: error,
+      input: 'url',
+      showDenyButton: true,
+      denyButtonText: 'Back to home',
+      confirmButtonText: 'Check again',
+      inputPlaceholder: 'Enter the URL',
+      allowOutsideClick: false
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location =
+          `{{ url_for('check') }}?target=${result.value}`;
+      } else if (result.isDenied) {
+        window.location = "{{ url_for('home') }}";
+      }
+    });
+  }
+
+  $(function () {
+
+    setTargetScreenshot();
+
+    $.ajax({
+      type: "POST",
+      url: "{{ url_for('check') }}",
+      contentType: "application/json",
+      data: JSON.stringify({
+        target: "{{target}}",
+      }),
+      dataType: "json",
+      success: function (data, status) {
+        console.log("Data: " + JSON.stringify(data) + "\nStatus: " + status);
+        if (data.status) {
+          showResult(data);
+        } else {
+          showResult("");
+          invalidAlert(data.message);
+        }
+      },
+    });
+  });
+
+  $(window).on('resize', function () {
+    setTargetScreenshot();
+  });
+</script>
+{% endblock %}
