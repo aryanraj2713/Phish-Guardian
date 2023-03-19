@@ -49,7 +49,7 @@ Dua, D. and Graff, C. (2019). UCI Machine Learning Repository [http://archive.ic
 * Mohammad, Rami, McCluskey, T.L. and Thabtah, Fadi Abdeljaber (2014) Intelligent Rule based Phishing Websites Classification. IET Information Security, 8 (3). pp. 153-160. ISSN 1751-8709
 
 
-<div><h2><strong>Authors of this Repository -</strong></h2></div>
+<div><h2><strong>Developers of this Repository -</strong></h2></div>
 
 <table align="center">
 <tr align="center">
