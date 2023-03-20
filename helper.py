@@ -1,6 +1,6 @@
 from features import FeatureExtraction
 from flask import send_from_directory
-from html2image import Html2Image
+# from html2image import Html2Image
 from urllib.parse import urlparse
 import pandas as pd
 import validators
@@ -9,11 +9,13 @@ import re
 import os
 # ec
 
-screenshot_dir = 'screenshot/'
+
+
+# screenshot_dir = 'screenshot/'
 stats_params = ('visits', 'checked', 'phished')
 
-h2i = Html2Image()
-h2i.output_path = screenshot_dir
+# h2i = Html2Image()
+# h2i.output_path = screenshot_dir
 
 
 stats_filename = 'stats.txt'
@@ -27,9 +29,9 @@ def format_url(url):
     return url
 
 
-def capture_screenshot(target_url, filename='screenshot.png', size=(1920, 1080)):
-    h2i.screenshot(url=target_url, save_as=filename, size=size)
-    return send_from_directory(screenshot_dir, path=filename)
+# def capture_screenshot(target_url, filename='screenshot.png', size=(1920, 1080)):
+#     h2i.screenshot(url=target_url, save_as=filename, size=size)
+#     return send_from_directory(screenshot_dir, path=filename)
 
 
 def get_phishing_result(target_url):
@@ -38,7 +40,7 @@ def get_phishing_result(target_url):
         return dict(status=False, message="You have provided an invalid target url, Please try again after updating the url.")
 
     try:
-        update_stats('checked')
+        # update_stats('checked')
         target = urlparse(target_url)
 
         features_obj = FeatureExtraction(target_url)

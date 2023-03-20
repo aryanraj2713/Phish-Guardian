@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "repl_nix_Phish-Guardian"
+version = "0.1.0"
+description = ""
+authors = ["Replit user <<>>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pandas = "^1.5.3"
+requests = "^2.28.2"
+validators = "^0.20.0"
+Werkzeug = "^2.2.3"
+whois = "^0.9.27"
+bs4 = "^0.0.1"
+dnspython = "^2.3.0"
+Flask = "^2.2.3"
+selenium = "^4.8.2"
+selenium-chrome = "0.0.29"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
